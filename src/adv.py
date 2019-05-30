@@ -2,9 +2,25 @@ from room import Room
 from player import Player
 # Declare all the rooms
 
+
+class Game:
+    def __init__(self, name, rooms, player):
+        self.name = name
+        self.rooms = rooms
+        self.player = player
+
+    def __str__(self):
+        output = f'<---{self.name}--->\n\n'
+        output += f'Welcome, {self.player.name}.\n'
+        output += 'Where will you go?\n'
+        output += 'What will you do?\n'
+        output += 'Your choices are to enter N, S, E, or W.\n'
+        output += 'Press Q to quit'
+        return output
+
 room = {
     'outside':  Room("Outside Cave Entrance",
-                     "North of you, the cave mount beckons"),
+                     "North of you, the cave mount beckons."),
 
     'foyer':    Room("Foyer", """Dim light filters in from the south. Dusty
 passages run north and east."""),
@@ -40,25 +56,27 @@ room['treasure'].s_to = room['narrow']
 # Make a new player object that is currently in the 'outside' room.
 player = Player("Maria", room["outside"])
 directions = ['n', 's', 'e', 'w']
+
+my_game = Game("Magic Kingdom", room, player)
+print(my_game)
 # Write a loop that:
-print((f'Welcome, {player.name}'))
 # * Prints the current room name
+
 while True:
-        print(f'You are in {current_room.name}.')
+        print(f'You are in the {my_game.player.current_room.name}.')
 # * Prints the current description (the textwrap module might be useful here).
-        print(f'{current_room.description}')
+        print(f'{my_game.player.current_room.description}')
 # * Waits for user input and decides what to do.
-        userInput = input().lower.split(" ")
-        cmd = userInput[0]
+        choice = input().lower()
 # If the user enters a cardinal direction, attempt to move to the room there.
 # Print an error message if the movement isn't allowed.
 #
 # If the user enters "q", quit the game.
 
-        if cmd == "q":
+        if choice == "q":
                 print("Thanks for playing!")
-                sys.exit()
-        elif cmd in directions:
-                player.travel(cmd)
+                exit()
+        elif choice in directions:
+                my_game.player.travel(choice)
         else:
                 print("Not a valid command or directions")
