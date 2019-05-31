@@ -63,17 +63,19 @@ print(my_game)
 # * Prints the current room name
 
 while True:
-        print(f'You are in the {my_game.player.current_room.name}.')
+        print(f'\n\nYou are in the {my_game.player.current_room.name}.')
 # * Prints the current description (the textwrap module might be useful here).
         print(f'{my_game.player.current_room.description}')
 # * Waits for user input and decides what to do.
-        choice = input().lower()
+        inp = input().lower().split(" ")
+        verb = inp[0].lower()
+        choice = inp[1].lower()
 # If the user enters a cardinal direction, attempt to move to the room there.
 # Print an error message if the movement isn't allowed.
 #
 # If the user enters "q", quit the game.
 
-        if choice == "q":
+        if verb == "q":
                 print("Thanks for playing!")
                 exit()
         elif choice in directions:
