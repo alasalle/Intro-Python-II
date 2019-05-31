@@ -3,10 +3,11 @@
 
 
 class Room:
-    def __init__(self, name, description):
+    def __init__(self, name, description, items):
             self.name = name
             self.description = description
             self.n_to = "null"
             self.s_to = "null"
             self.e_to = "null"
             self.w_to = "null"
+            self.items = items

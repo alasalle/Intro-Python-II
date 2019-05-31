@@ -3,9 +3,10 @@
 
 
 class Player:
-    def __init__(self, name, current_room):
+    def __init__(self, name, current_room, items):
         self.name = name
         self.current_room = current_room
+        self.items = items
 
     def travel(self, direction):
         if direction == "n":
@@ -32,3 +33,20 @@ class Player:
                 self.current_room = new_room
             else:
                 print("There's nothing that way. Pick again.")
+
+    def take(self, item):
+        old_items = self.items
+        new_items = old_items.append(item)
+        self.items = old_items
+
+    def drop(self, item):
+        def filterItems(item):
+            for i in self.items:
+                if item.name == i.name:
+                    return True
+                else:
+                    return False
+        filteredItems = filter(filterItems, self.items)
+        if type(filteredItems) != list:
+            filteredItems = list(filteredItems)
+        self.items = filteredItems
